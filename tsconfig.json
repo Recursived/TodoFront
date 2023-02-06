@@ -24,4 +24,5 @@
 	    "include": [
 		    "src", "tsconfig.json", "config-overrides.js"
 	    ]
+  }
 }
