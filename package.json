@@ -17,6 +17,7 @@
     "react-scripts": "5.0.1",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.1.4",
+    "state-pool": "^0.9.0",
     "styled-components": "^5.3.6",
     "typeorm": "^0.3.11",
     "web-vitals": "^2.1.4"

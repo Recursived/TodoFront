@@ -1,8 +1,8 @@
 import React from "react";
-import useFetch from "src/hooks/fetcher-hook";
 import styled from 'styled-components';
-import { getTodos } from "src/utils/todo.service";
-import WidgetTodo from "src/components/WidgetTodo";
+import WidgetTodo from 'src/components/WidgetTodo';
+import { store } from  'src/utils/db.service';
+import {Todo} from "src/utils/seed";
 
 const ListTodo = styled.div`
 	display: flex;
@@ -12,15 +12,14 @@ const ListTodo = styled.div`
 `
 
 function Homepage() {
-	const { isLoading, payload, error } = useFetch(() => getTodos());
-
-	return isLoading || payload === undefined ? <p>
-		Loading todos
-	</p> : (<ListTodo>
-		{payload.map((todo, index) => (
-			<WidgetTodo key={index} todo={todo}></WidgetTodo>
+	console.log(store !== null || store !== undefined);
+	const [todos, setTodos, updateTodos] = store.useState("todos");
+	console.log(todos);
+	return (<ListTodo>
+		{todos.map((t : Todo, index : number) => (
+			<WidgetTodo key={index} todo={t} />
 		))}
-	</ListTodo>) ;
+	</ListTodo>);
 }  
 
 
