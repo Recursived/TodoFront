@@ -20,17 +20,18 @@ const Card = styled.div`
  `
 
 type WidgetTodoProps = {
-	todo: Todo
+	updateTodo: (id:number) => void;
+	todo: Todo;
 }
 
 function WidgetTodo(props: WidgetTodoProps) {
-	const [validated, setIsValidated] = useState<boolean>(props.todo.done);
+	const [validated] = useState<boolean>(props.todo.done);
 	return (
 		<Card>
 			<InfoDisplayer>Created on : {props.todo.createdAt.toLocaleDateString()}</InfoDisplayer>
 			<TitleTodo title={props.todo.title} />
 			<ContentTodo content={props.todo.content} />
-			<InfoDisplayer talign="right" fs="40px">{validated ? <FaCheckSquare onClick={() => setIsValidated(!validated) } style={{marginRight: "20px"}}/> : <FaRegSquare onClick={() => setIsValidated(!validated) } style={{marginRight: "20px"}}/>}</InfoDisplayer>
+			<InfoDisplayer talign="right" fs="40px">{props.todo.done ? <FaCheckSquare onClick={() => props.updateTodo(props.todo.id) } style={{marginRight: "20px"}}/> : <FaRegSquare onClick={() => props.updateTodo(props.todo.id)} style={{marginRight: "20px"}}/>}</InfoDisplayer>
 		</Card>
 
 	);

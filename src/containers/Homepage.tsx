@@ -12,12 +12,16 @@ const ListTodo = styled.div`
 `
 
 function Homepage() {
-	console.log(store !== null || store !== undefined);
 	const [todos, setTodos, updateTodos] = store.useState("todos");
-	console.log(todos);
+	const updateDone = (id: number) => {
+		updateTodos(todos => {
+			const index : number = todos.findIndex((t:Todo) => t.id == id);
+			todos[index].done = !todos[index].done;
+		});
+	}
 	return (<ListTodo>
 		{todos.map((t : Todo, index : number) => (
-			<WidgetTodo key={index} todo={t} />
+			<WidgetTodo key={index} todo={t}  updateTodo={updateDone} />
 		))}
 	</ListTodo>);
 }  
