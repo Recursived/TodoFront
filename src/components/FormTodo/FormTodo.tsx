@@ -24,6 +24,16 @@ const WarningDiv = styled.div`
 	font-size: 22px;
 `
 
+const SuccessDiv = styled.div`
+	background-color: #EFE;
+	border: 1px solid #DED;
+	color: #9A9;
+	display: none;
+	border-radius: 8px;
+	padding: 10px;
+	font-size: 22px;
+`
+
 type FormTodoProps = {
 	adder: (todos: any) => any;
 };
@@ -33,7 +43,8 @@ function FormTodo(props: FormTodoProps) {
 	const [clicked, setClicked] = useState<boolean>(false)
 	const [title, setTitle] = useState<string>("");
 	const [content, setContent] = useState<string>("");
-	const divRef = useRef<HTMLDivElement>(null);
+	const warningRef = useRef<HTMLDivElement>(null);
+	const successRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (clicked) {
@@ -50,18 +61,24 @@ function FormTodo(props: FormTodoProps) {
 						content: content,
 					})
 				});
+				setTitle("");
+				setContent("");
+
+				successRef.current!.style.display = "block";
+				setTimeout(() => {successRef.current!.style.display = "none"}, 5000);
 			} else {
-				divRef.current!.style.display = "block";
-				setTimeout(() => {divRef.current!.style.display = "none"}, 5000);
+				warningRef.current!.style.display = "block";
+				setTimeout(() => {warningRef.current!.style.display = "none"}, 5000);
 			}
 		}
 	}, [clicked]);
 
 	return (
 		<FlexContainer>
-			<InputForm setTitle={setTitle} setContent={setContent} />
+			<InputForm title={title} content={content} setTitle={setTitle} setContent={setContent} />
 			<ButtonForm setClicked={setClicked} />
-			<WarningDiv ref={divRef}>Content field is empty. Consider adding something</WarningDiv>
+			<WarningDiv ref={warningRef}>Content field is empty. Consider adding something</WarningDiv>
+			<SuccessDiv ref={successRef}>Todo has been added to the list</SuccessDiv>
 		</FlexContainer>
 
 	)

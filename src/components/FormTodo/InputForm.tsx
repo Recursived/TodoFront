@@ -1,6 +1,5 @@
-import React, {Dispatch, SetStateAction, useId} from "react";
+import {Dispatch, SetStateAction, useId, useRef} from "react";
 import styled from "styled-components";
-import { debounce } from "src/utils/event-handling";
 
 
 const StyledTextArea = styled.textarea`
@@ -17,22 +16,19 @@ const StyledInput = styled.input`
 type InputFormProps = {
 	setTitle: Dispatch<SetStateAction<string>>;
 	setContent: Dispatch<SetStateAction<string>>; 
+	title: string,
+	content: string
 };
 
 function InputForm(props : InputFormProps) {
 	const inputId = useId();
 	const textareaId = useId();
-
-	const changeState = (func : Function, text: string) => {
-		debounce(() => func(text));
-	};
-
 	return (
 		<>
 			<label htmlFor={inputId}>Todo title</label>
-			<StyledInput onChange={e => changeState(props.setTitle, e.target.value)} type="text"/>
+			<StyledInput value={props.title} onChange={e => props.setTitle(e.target.value)} type="text"/>
 			<label htmlFor={textareaId}>Content of Todo</label>
-			<StyledTextArea onChange={e => changeState(props.setContent, e.target.value)} rows={5} cols={60}></StyledTextArea>
+			<StyledTextArea value={props.content} onChange={e => props.setContent(e.target.value) } rows={5} cols={60}/>
 		</>		
 	);
 }
