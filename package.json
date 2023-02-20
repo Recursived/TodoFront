@@ -1,5 +1,5 @@
 {
-  "name": "todo-app",
+  "name": "new-todo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,29 +7,20 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.11",
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
+    "@types/node": "^16.18.12",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
     "react": "^18.2.0",
-    "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.7.1",
     "react-scripts": "5.0.1",
-    "reflect-metadata": "^0.1.13",
-    "sqlite3": "^5.1.4",
-    "state-pool": "^0.9.0",
-    "styled-components": "^5.3.6",
-    "typeorm": "^0.3.11",
+    "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
-  "prisma": {
-    "seed": "node --require esbuild-register prisma/seed.ts"
-  },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -48,13 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/styled-components": "^5.1.26",
-    "esbuild-register": "^3.4.2",
-    "react-app-alias": "^2.2.2",
-    "react-app-rewire-alias": "^1.1.7",
-    "typescript": "^4.9.5",
-    "webpack": "^5.75.0"
   }
 }
