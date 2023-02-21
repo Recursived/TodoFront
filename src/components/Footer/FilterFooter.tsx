@@ -3,7 +3,7 @@ import {
 	ALL_TODOS,
 	ACTIVE_TODO,
 	COMPLETED_TODOS
-} from "../utils/constants";
+} from "../../utils/constants";
 
 type FilterFooterProps = {
 	nowShowing: string

@@ -16,7 +16,7 @@ const uuid: () => string = () => {
 }
 
 const pluralize: (count: number, word: string) => string = (count, word) => {
-	return count === 1 ? word : word + 's';
+	return count <= 1 ? word : word + 's';
 }
 
 const saveData: (np: string, data: object) => void = (np, data) => {
