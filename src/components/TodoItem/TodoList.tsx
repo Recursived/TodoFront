@@ -6,11 +6,11 @@ type TodoListProps = {
 
 function TodoList({children} : TodoListProps){
 	return (
-		<ul className='todo-list'>
+		<ul className="todo-list">
 			{children}
 		</ul>
 	);
 }
 
 
-export default TodoList;
+export {TodoList};

@@ -1,22 +1,18 @@
 import classNames from "classnames";
+import {TodoModel} from "../../models/TodoModel";
 
-type TodoItemProps = {
-	completed: boolean;
-	title: string;
-	id: string;
-};
 
-function TodoItem({completed, title, id}: TodoItemProps) {
+function TodoItem({completed, title, id}: TodoModel) {
 	return (
-		<ul className={classNames({completed: completed})}>
+		<li className={classNames({completed: completed})}>
 			<div className="view">
 				<input className="toggle" type="checkbox"  checked={completed} />
 				<label>{title}</label>
 				<button className="destroy"></button>
 				<input className="edit" value={title}/>
 			</div>
-		</ul>
+		</li>
 	);
 }
 
-export default TodoItem;
+export {TodoItem};

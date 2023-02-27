@@ -1,3 +1,3 @@
 export * from "./TodoItem";
-export { default } from "./TodoList";
+export * from "./TodoList";
 
