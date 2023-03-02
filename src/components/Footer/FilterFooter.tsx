@@ -1,11 +1,7 @@
 import classNames from "classnames";
 import {Dispatch} from "react";
-import {TodoAction} from "../../reducer";
-import { 	
-	ALL_TODOS,
-	ACTIVE_TODO,
-	COMPLETED_TODOS
-} from "../../utils/constants";
+import {changeDisplayedTodos, clearCompletedTodos} from "../../actions";
+import {TodoAction, TodoDisplayKind} from "../../reducer";
 
 interface FilterFooterProps  {
 	nowShowing: string
@@ -13,12 +9,19 @@ interface FilterFooterProps  {
 };
 
 function FilterFooter({nowShowing, dispatch} : FilterFooterProps){
+	const onClickClearCompleted = () => dispatch(clearCompletedTodos());
+	const onClickChangeFilter = (dk : TodoDisplayKind) => {
+		dispatch(changeDisplayedTodos({
+			nowShowing: dk
+		}));
+	}
 	return (
 		<ul className="filters">
 			<li>
 				<a
 					href="#/"
-					className={classNames({selected: nowShowing === ALL_TODOS})}
+					className={classNames({selected: nowShowing === TodoDisplayKind.ALL_TODOS})}
+					onClick={() => onClickChangeFilter(TodoDisplayKind.ALL_TODOS)}
 				>
 				All
 				</a>
@@ -27,7 +30,8 @@ function FilterFooter({nowShowing, dispatch} : FilterFooterProps){
 			<li>
 				<a
 					href="#/active"
-					className={classNames({selected: nowShowing === ACTIVE_TODO})}
+					className={classNames({selected: nowShowing === TodoDisplayKind.ACTIVE_TODO})}
+					onClick={() => onClickChangeFilter(TodoDisplayKind.ACTIVE_TODO)}
 				>
 				Active
 				</a>
@@ -36,12 +40,13 @@ function FilterFooter({nowShowing, dispatch} : FilterFooterProps){
 			<li>
 				<a
 					href="#/completed"
-					className={classNames({selected: nowShowing === COMPLETED_TODOS})}
+					className={classNames({selected: nowShowing === TodoDisplayKind.COMPLETED_TODOS})}
+					onClick={() => onClickChangeFilter(TodoDisplayKind.COMPLETED_TODOS)}
 				>
 				Completed 
 				</a>
 			</li>
-			<button className="clear-completed">Clear completed</button>
+			<button className="clear-completed" onClick={onClickClearCompleted}>Clear completed</button>
 		</ul>
 	);	
 }

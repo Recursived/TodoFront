@@ -9,7 +9,8 @@ enum TodoActionKind {
 	REMOVE_TODO = "REMOVE_TODO",
 	TOGGLE_ALL_TODOS = "TOGGLE_ALL_TODOS ",
 	CHANGE_DISPLAYED_TODOS = "CHANGE_DISPLAYED_TODOS",
-	INIT_TODOS = "INIT_TODOS"
+	INIT_TODOS = "INIT_TODOS",
+	CLEAR_COMPLETED = "CLEAR_COMPLETED"
 };
 
 enum TodoDisplayKind {
@@ -24,12 +25,12 @@ export interface TodoPayload {
 	completed?: boolean,
 	todo?: TodoModel,
 	nowShowing?: TodoDisplayKind
-	todos? : TodoModel[]
+	todos?: TodoModel[]
 }
 
 export interface TodoAction {
 	type: TodoActionKind,
-	payload: TodoPayload
+	payload?: TodoPayload
 }
 
 export interface IState {
@@ -42,12 +43,12 @@ export const initState: IState = {
 	todos: []
 }
 
-const todoReducer : Reducer<IState, TodoAction> = (state , action) => {
+const todoReducer: Reducer<IState, TodoAction> = (state, action) => {
 	return produce<IState>(state, draft => {
 		const {type, payload} = action;
 		switch (type) {
 			case TodoActionKind.ADD_TODO:
-				if (action.payload.id && action.payload.title) {
+				if (action.payload?.id && action.payload.title) {
 					draft.todos.push({
 						id: action.payload.id,
 						title: action.payload.title,
@@ -57,22 +58,32 @@ const todoReducer : Reducer<IState, TodoAction> = (state , action) => {
 				break;
 			case TodoActionKind.REMOVE_TODO:
 				console.log("removetodo", payload);
-				draft.todos.filter(t => t.id !== payload.id)
+				draft.todos = state.todos.filter(t => t.id !== payload?.id)
 				break;
 			case TodoActionKind.UPDATE_TODO:
-				console.log("payload", payload)
-				draft.todos.map(t => (t.id === payload.todo?.id) ?  payload.todo : t)
+				draft.todos = state.todos.map(t => (t.id === payload?.todo?.id) ? payload.todo : t)
 				break;
 			case TodoActionKind.TOGGLE_ALL_TODOS:
-				draft.todos.map(t => {
-					if (payload.completed !== undefined) t.completed = payload.completed;
+				draft.todos = state.todos.map(t => {
+					if (payload?.completed !== undefined) {
+						return {
+							...t,
+							completed : payload?.completed
+						}
+					}
+					return t;
 				})
 				break;
 			case TodoActionKind.CHANGE_DISPLAYED_TODOS:
-				if (action.payload.nowShowing) draft.nowShowing = action.payload.nowShowing
+				if (action.payload?.nowShowing) draft.nowShowing = action.payload?.nowShowing
 				break;
 			case TodoActionKind.INIT_TODOS:
-				if (action.payload.todos) draft.todos = action.payload.todos;
+				if (action.payload?.todos) draft.todos = action.payload.todos;
+				break;
+			case TodoActionKind.CLEAR_COMPLETED:
+				console.log("hello")
+				draft.todos = state.todos.filter(t => !t.completed)
+				break;
 		}
 	})
 }
@@ -80,5 +91,6 @@ const todoReducer : Reducer<IState, TodoAction> = (state , action) => {
 
 export {
 	TodoActionKind,
+	TodoDisplayKind,
 	todoReducer
 }

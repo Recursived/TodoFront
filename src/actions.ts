@@ -45,11 +45,18 @@ function initTodos(payload: TodoPayload) : TodoAction {
 	}
 }
 
+function clearCompletedTodos() : TodoAction {
+	return {
+		type: TodoActionKind.CLEAR_COMPLETED
+	}
+}
+
 export {
 	addTodo,
 	removeTodo,
 	updateTodo,
 	toggleAll,
 	changeDisplayedTodos,
-	initTodos
+	initTodos,
+	clearCompletedTodos
 }

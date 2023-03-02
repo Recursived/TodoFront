@@ -1,4 +1,3 @@
-import {type} from "os";
 import {TodoModel} from "../models/TodoModel";
 
 const uuid: () => string = () => {
@@ -11,7 +10,7 @@ const uuid: () => string = () => {
 			uuid += '-';
 		}
 
-		uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random))
+		uuid += (i === 12 ? 4 : (i === 16 ? ((random & 3) | 8) : random))
 			.toString(16);
 	}
 	return uuid;
