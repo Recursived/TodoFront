@@ -1,15 +1,18 @@
 import classNames from "classnames";
+import {Dispatch} from "react";
+import {TodoAction} from "../../reducer";
 import { 	
 	ALL_TODOS,
 	ACTIVE_TODO,
 	COMPLETED_TODOS
 } from "../../utils/constants";
 
-type FilterFooterProps = {
+interface FilterFooterProps  {
 	nowShowing: string
+	dispatch: Dispatch<TodoAction>
 };
 
-function FilterFooter({nowShowing} : FilterFooterProps){
+function FilterFooter({nowShowing, dispatch} : FilterFooterProps){
 	return (
 		<ul className="filters">
 			<li>

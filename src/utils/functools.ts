@@ -1,3 +1,5 @@
+import {type} from "os";
+import {TodoModel} from "../models/TodoModel";
 
 const uuid: () => string = () => {
 	let random;
@@ -19,16 +21,19 @@ const pluralize: (count: number, word: string) => string = (count, word) => {
 	return count <= 1 ? word : word + 's';
 }
 
-const saveData: (np: string, data: object) => void = (np, data) => {
+const saveData: (np: string, data: TodoModel[]) => void = (np, data) => {
 	if (data) {
 		return localStorage.setItem(np, JSON.stringify(data));
 	}
 }
 
-const loadData: (np: string) => object | null = (np) => {
-	let json_data = localStorage.getItem(np);
-	if (json_data) return JSON.parse(json_data);
-	return {};
+const loadData: (np: string) => TodoModel[] = (np) => {
+	let str_data = localStorage.getItem(np);
+	if (str_data) {
+		let json_data = JSON.parse(str_data);
+		return Array.isArray(json_data) ? json_data : [];
+	}
+	return [];
 }
 
 

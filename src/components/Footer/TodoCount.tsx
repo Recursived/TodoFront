@@ -1,8 +1,8 @@
 import {pluralize} from "../../utils/functools";
 // TODO : change path alias cuz relative path is yucky
 
-type TodoCountProps = {
-	count : number;
+interface TodoCountProps  {
+	count : number
 };
 
 function TodoCount({count}: TodoCountProps){
